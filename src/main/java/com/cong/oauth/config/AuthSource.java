@@ -26,6 +26,13 @@ public interface AuthSource {
     String accessToken();
 
     /**
+     * 获取用户信息的api
+     *
+     * @return url
+     */
+    String userInfo();
+
+    /**
      * 取消授权的api
      *
      * @return url

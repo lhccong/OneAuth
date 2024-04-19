@@ -6,8 +6,7 @@
 <h1 align="center">OneAuth</h1>
 <p align="center"><strong>小而全而美的第三方登录开源组件。<br><em>持续更新中～</em></strong></p>
 <div align="center">
-    <a href=""><img src="https://img.shields.io/badge/github-项目地址-yellow.svg?style=plasticr"></a>
-    <a href=""><img src="https://img.shields.io/badge/前端-项目地址-blueviolet.svg?style=plasticr"></a>
+    <a href="https://github.com/lhccong/OneAuth"><img src="https://img.shields.io/badge/github-项目地址-yellow.svg?style=plasticr"></a>
 </div>
 
 

@@ -1,10 +1,12 @@
 package com.cong.oauth.utils;
 
+import com.cong.oauth.cache.AuthStateCache;
 import com.cong.oauth.config.AuthConfig;
 import com.cong.oauth.config.AuthDefaultSource;
 import com.cong.oauth.config.AuthSource;
 import com.cong.oauth.enums.AuthResponseStatus;
 import com.cong.oauth.exception.AuthException;
+import com.cong.oauth.model.AuthCallback;
 
 /**
  * 授权配置类的校验器
@@ -54,5 +56,49 @@ public class AuthChecker {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
 
+    }
+
+    /**
+     * 校验回调传回的{@code state}，为空或者不存在
+     * <p>
+     * {@code state}不存在的情况只有两种：
+     * 1. {@code state}已使用，被正常清除
+     * 2. {@code state}为前端伪造，本身就不存在
+     *
+     * @param state          {@code state}一定不为空
+     * @param source         {@code source}当前授权平台
+     * @param authStateCache {@code authStateCache} state缓存实现
+     */
+    public static void checkState(String state, AuthSource source, AuthStateCache authStateCache) {
+        // 推特平台不支持回调 code 和 state
+        if (source == AuthDefaultSource.TWITTER) {
+            return;
+        }
+        if (StringUtils.isEmpty(state) || !authStateCache.containsKey(state)) {
+            throw new AuthException(AuthResponseStatus.ILLEGAL_STATUS, source);
+        }
+    }
+
+    /**
+     * 校验回调传回的code
+     * <p>
+     * {@code v1.10.0}版本中改为传入{@code source}和{@code callback}，对于不同平台使用不同参数接受code的情况统一做处理
+     *
+     * @param source   当前授权平台
+     * @param callback 从第三方授权回调回来时传入的参数集合
+     * @since 1.8.0
+     */
+    public static void checkCode(AuthSource source, AuthCallback callback) {
+        // 推特平台不支持回调 code 和 state
+        if (source == AuthDefaultSource.TWITTER) {
+            return;
+        }
+        String code = callback.getCode();
+        if (source == AuthDefaultSource.HUAWEI) {
+            code = callback.getAuthorization_code();
+        }
+        if (StringUtils.isEmpty(code)) {
+            throw new AuthException(AuthResponseStatus.ILLEGAL_CODE, source);
+        }
     }
 }

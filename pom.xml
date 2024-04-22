@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <simple-http.version>1.0.5</simple-http.version>
         <fastjson-version>1.2.83</fastjson-version>
+        <slf4j_version>2.0.6</slf4j_version>
     </properties>
     <dependencies>
         <dependency>
@@ -31,6 +32,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j_version}</version>
         </dependency>
     </dependencies>
 

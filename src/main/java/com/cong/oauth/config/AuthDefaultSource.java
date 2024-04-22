@@ -34,6 +34,31 @@ public enum AuthDefaultSource implements AuthSource {
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthGithubRequest.class;
         }
-    }
+    },
+
+    /**
+     * Stack Overflow
+     */
+    STACK_OVERFLOW {
+        @Override
+        public String authorize() {
+            return "https://stackoverflow.com/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://stackoverflow.com/oauth/access_token/json";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.stackexchange.com/2.2/me";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthDefaultRequest.class;
+        }
+    },
 
 }

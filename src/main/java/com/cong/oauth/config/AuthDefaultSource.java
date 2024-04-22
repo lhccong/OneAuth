@@ -86,5 +86,36 @@ public enum AuthDefaultSource implements AuthSource {
             return AuthDefaultRequest.class;
         }
     },
+    /**
+     * 华为
+     *
+     * @since 1.10.0
+     */
+    HUAWEI {
+        @Override
+        public String authorize() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v2/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v2/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.vmall.com/rest.php";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v2/token";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthDefaultRequest.class;
+        }
+    },
 
 }

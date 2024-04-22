@@ -1,6 +1,7 @@
 package com.cong.oauth.utils;
 
 import com.cong.oauth.config.AuthConfig;
+import com.cong.oauth.config.AuthDefaultSource;
 import com.cong.oauth.config.AuthSource;
 import com.cong.oauth.enums.AuthResponseStatus;
 import com.cong.oauth.exception.AuthException;
@@ -14,6 +15,24 @@ import com.cong.oauth.exception.AuthException;
 public class AuthChecker {
     private AuthChecker() {
 
+    }
+
+    /**
+     * 是否支持第三方登录
+     *
+     * @param config config
+     * @param source source
+     * @return true or false
+     * @since 1.6.1-beta
+     */
+    public static boolean isSupportedAuth(AuthConfig config, AuthSource source) {
+        boolean isSupported = StringUtils.isNotEmpty(config.getClientId())
+                && StringUtils.isNotEmpty(config.getClientSecret());
+        if (isSupported && AuthDefaultSource.STACK_OVERFLOW == source) {
+            isSupported = StringUtils.isNotEmpty(config.getStackOverflowKey());
+        }
+
+        return isSupported;
     }
 
     /**

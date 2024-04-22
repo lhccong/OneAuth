@@ -60,5 +60,31 @@ public enum AuthDefaultSource implements AuthSource {
             return AuthDefaultRequest.class;
         }
     },
+    /**
+     * Twitter
+     *
+     * @since 1.13.0
+     */
+    TWITTER {
+        @Override
+        public String authorize() {
+            return "https://api.twitter.com/oauth/authenticate";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.twitter.com/oauth/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.twitter.com/1.1/account/verify_credentials.json";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthDefaultRequest.class;
+        }
+    },
 
 }
